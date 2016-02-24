@@ -1,0 +1,64 @@
+EnterTab (Programming Language)
+
+EnterTab is a programming language that works on a special infinite tape.
+
+It is best imagined as an empty document, or a text editor.
+
+There are a few commands.
+
+OPEN(document name)
+Opens a new document in the name of document name. It is possible to open more than one document at a time.
+
+INPUT
+inserts a number of characters equal to the ascii value of the input
+
+LEFT(X)/RIGHT(X)/UP(X)/DOWN(X)
+moves cursor X places left, right, it is like pressing the left or right arrow key X times.
+The behaviour for up/down arrow tries to go to the nearest point of the next/previous line.
+If there is a tie, it chooses the point in front.
+If RIGHT(1) is done at the end of a line, it moves to the next line.
+Throws OUTSIDE exception when it tries to move the cursor out.
+
+<tab   >
+aaaa|(cursor)
+becomes
+|tab   >
+aaaa
+
+TAB(M)
+Insert a tab character at the current position with a length of M.
+Inserting a tab character of length 1 is equivalent to inserting a character,
+but it gets recognised as a tab in the replace command.
+
+This will move the next character to the next position which is a multiple of M.
+
+REPLACE(X) {
+	// "if statement"
+}
+If the character after the cursor is X, delete it and run the code inside the brackets.
+X can be character, tab, enter or EOF. (EOF cannot really be deleted...)
+
+VALIDMOVE {
+	// "loop"
+}
+While the cursor does not move right or down at the end of the current document,
+or up/left ar the front of the document, loop the code.
+
+ENTER(X)
+Insert X ENTER characters at the current position.
+
+CHAR(X)
+Insert X characters at current cursor position.
+
+BACKSPACE(X)
+Delete X characters at current cursor position using backspace.
+Throws weak exception and does nothing when there are no characters.
+
+BACKSPACE(X)
+Delete X characters at current cursor position using backspace
+
+WIDTH(W)
+Sets the width of the line. Any extra characters that don't fit get moved to the next line.
+
+OUTPUT
+Output the number of characters in the document (mod 256) as ASCII.
