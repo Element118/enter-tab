@@ -17,7 +17,7 @@ moves cursor X places left, right, it is like pressing the left or right arrow k
 The behaviour for up/down arrow tries to go to the nearest point of the next/previous line.
 If there is a tie, it chooses the point in front.
 If RIGHT(1) is done at the end of a line, it moves to the next line.
-Throws OUTSIDE exception when it tries to move the cursor out.
+Throws weak exception when it tries to move the cursor out.
 
 <tab   >
 aaaa|(cursor)
@@ -41,8 +41,8 @@ X can be character, tab, enter or EOF. (EOF cannot really be deleted...)
 VALIDMOVE {
 	// "loop"
 }
-While the cursor does not move right or down at the end of the current document,
-or up/left ar the front of the document, loop the code.
+Catches weak exception and breaks out of loop immediately when one is thrown.
+In nested loops, only break out of most inner loop.
 
 ENTER(X)
 Insert X ENTER characters at the current position.
@@ -54,8 +54,9 @@ BACKSPACE(X)
 Delete X characters at current cursor position using backspace.
 Throws weak exception and does nothing when there are no characters.
 
-BACKSPACE(X)
-Delete X characters at current cursor position using backspace
+DELETE(X)
+Delete X characters at current cursor position using delete.
+Throws weak exception and does nothing when there are no characters.
 
 WIDTH(W)
 Sets the width of the line. Any extra characters that don't fit get moved to the next line.
