@@ -10,10 +10,11 @@ OPEN(document name)
 Opens a new document in the name of document name. It is possible to open more than one document at a time.
 
 INPUT
-inserts a number of characters equal to the ascii value of the input
+Inserts a number of characters equal to the ascii value of the input.
+Input is blocking. Throws weak exception when no more input is left.
 
 LEFT(X)/RIGHT(X)/UP(X)/DOWN(X)
-moves cursor X places left, right, it is like pressing the left or right arrow key X times.
+Moves cursor X places left, right, it is like pressing the left or right arrow key X times.
 The behaviour for up/down arrow tries to go to the nearest point of the next/previous line.
 If there is a tie, it chooses the point in front.
 If RIGHT(1) is done at the end of a line, it moves to the next line.
@@ -36,7 +37,9 @@ REPLACE(X) {
 	// "if statement"
 }
 If the character after the cursor is X, delete it and run the code inside the brackets.
-X can be character, tab, enter or EOF. (EOF cannot really be deleted...)
+X can be CHAR, TAB, ENTER or EOF. (EOF cannot really be deleted...)
+
+Use: REPLACE(CHAR)
 
 VALIDMOVE {
 	// "loop"
@@ -54,7 +57,7 @@ BACKSPACE(X)
 Delete X characters at current cursor position using backspace.
 Throws weak exception and does nothing when there are no characters.
 
-BACKSPACE(X)
+DELETE(X)
 Delete X characters at current cursor position using backspace
 
 WIDTH(W)
