@@ -4,16 +4,26 @@ EnterTab is a programming language that works on a special infinite tape.
 
 It is best imagined as an empty document, or a text editor.
 
-There are a few commands.
+There are a few data types:
+character_type:	CHAR, TAB, ENTER, EOF
+number:		Nonnegative integer in decimal representation.
+file:		Identifier
 
-OPEN(document name)
-Opens a new document in the name of document name. It is possible to open more than one document at a time.
+Here are the commands:
+
+OPEN(file)
+Opens a new (imaginary) document in the name of document name. It is possible to open more than one document at a time.
+By default, the first file open is the "root" file.
+Possibly, we can let all files with one-character names contain a number of characters equal to the ASCII value of that character, for easier output.
 
 INPUT
-Inserts a number of characters equal to the ascii value of the input.
+Inserts a number of characters equal to the ASCII value of the input to the current document.
 Input is blocking. Throws weak exception when no more input is left.
 
-LEFT(X)/RIGHT(X)/UP(X)/DOWN(X)
+OUTPUT
+Output the number of characters in the document (mod 256) as ASCII.
+
+LEFT(number)/RIGHT(number)/UP(number)/DOWN(number)
 Moves cursor X places left, right, it is like pressing the left or right arrow key X times.
 The behaviour for up/down arrow tries to go to the nearest point of the next/previous line.
 If there is a tie, it chooses the point in front.
@@ -26,14 +36,14 @@ becomes
 |tab   >
 aaaa
 
-TAB(M)
+TAB(number)
 Insert a tab character at the current position with a length of M.
 Inserting a tab character of length 1 is equivalent to inserting a character,
 but it gets recognised as a tab in the replace command.
 
 This will move the next character to the next position which is a multiple of M.
 
-REPLACE(X) {
+REPLACE(character_type) {
 	// "if statement"
 }
 If the character after the cursor is X, delete it and run the code inside the brackets.
@@ -47,22 +57,23 @@ VALIDMOVE {
 Catches weak exception and breaks out of loop immediately when one is thrown.
 In nested loops, only break out of most inner loop.
 
-ENTER(X)
+ENTER(number)
 Insert X ENTER characters at the current position.
 
-CHAR(X)
+CHAR(number)
 Insert X characters at current cursor position.
 
-BACKSPACE(X)
+BACKSPACE(number)
 Delete X characters at current cursor position using backspace.
 Throws weak exception and does nothing when there are no more characters to delete.
 
-DELETE(X)
+DELETE(number)
 Delete X characters at current cursor position using delete.
 Throws weak exception and does nothing when there are no more characters to delete.
 
-WIDTH(W)
+WIDTH(number)
 Sets the width of the line. Any extra characters that don't fit get moved to the next line.
+Defaults to 80.
 
-OUTPUT
-Output the number of characters in the document (mod 256) as ASCII.
+HEIGHT(file)
+Print a number of characters equal to the number of lines in the current file to the file argument.
