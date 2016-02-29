@@ -55,11 +55,11 @@ Insert X characters at current cursor position.
 
 BACKSPACE(X)
 Delete X characters at current cursor position using backspace.
-Throws weak exception and does nothing when there are no characters.
+Throws weak exception and does nothing when there are no more characters to delete.
 
 DELETE(X)
 Delete X characters at current cursor position using delete.
-Throws weak exception and does nothing when there are no characters.
+Throws weak exception and does nothing when there are no more characters to delete.
 
 WIDTH(W)
 Sets the width of the line. Any extra characters that don't fit get moved to the next line.
